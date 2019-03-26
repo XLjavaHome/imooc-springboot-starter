@@ -1,30 +1,25 @@
 package org.n3r.idworker.strategy;
 
-import org.n3r.idworker.Id;
-import org.n3r.idworker.RandomCodeStrategy;
-import org.n3r.idworker.utils.Utils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.File;
 import java.io.IOException;
 import java.security.SecureRandom;
 import java.util.ArrayDeque;
 import java.util.BitSet;
 import java.util.Queue;
+import org.n3r.idworker.Id;
+import org.n3r.idworker.RandomCodeStrategy;
+import org.n3r.idworker.utils.Utils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class DefaultRandomCodeStrategy implements RandomCodeStrategy {
     public static final int MAX_BITS = 1000000;
-
     Logger log = LoggerFactory.getLogger(DefaultRandomCodeStrategy.class);
-
     File idWorkerHome = Utils.createIdWorkerHome();
     volatile FileLock fileLock;
     BitSet codesFilter;
-
     int prefixIndex = -1;
     File codePrefixIndex;
-
     int minRandomSize = 6;
     int maxRandomSize = 6;
 
@@ -35,11 +30,10 @@ public class DefaultRandomCodeStrategy implements RandomCodeStrategy {
     @Override
     public void init() {
         release();
-
         while (++prefixIndex < 1000) {
-            if (tryUsePrefix()) return;
+            if (tryUsePrefix())
+                return;
         }
-
         throw new RuntimeException("all prefixes are used up, the world maybe ends!");
     }
 
@@ -55,18 +49,19 @@ public class DefaultRandomCodeStrategy implements RandomCodeStrategy {
 
     protected boolean tryUsePrefix() {
         codePrefixIndex = new File(idWorkerHome, Id.getWorkerId() + ".code.prefix." + prefixIndex);
-
-        if (!createPrefixIndexFile()) return false;
-        if (!createFileLock()) return false;
-        if (!createBloomFilter()) return false;
-
+        if (!createPrefixIndexFile())
+            return false;
+        if (!createFileLock())
+            return false;
+        if (!createBloomFilter())
+            return false;
         log.info("get available prefix index file {}", codePrefixIndex);
-
         return true;
     }
 
     private boolean createFileLock() {
-        if (fileLock != null) fileLock.destroy();
+        if (fileLock != null)
+            fileLock.destroy();
         fileLock = new FileLock(codePrefixIndex);
         return fileLock.tryLock();
     }
@@ -84,7 +79,6 @@ public class DefaultRandomCodeStrategy implements RandomCodeStrategy {
             }
             log.info("recreate bloom filter with cardinality {}", size);
         }
-
         return true;
     }
 
@@ -114,14 +108,13 @@ public class DefaultRandomCodeStrategy implements RandomCodeStrategy {
     }
 
     static final int CACHE_CODES_NUM = 1000;
-
     SecureRandom secureRandom = new SecureRandom();
     Queue<Integer> availableCodes = new ArrayDeque<Integer>(CACHE_CODES_NUM);
 
     @Override
     public int next() {
-        if (availableCodes.isEmpty()) generate();
-
+        if (availableCodes.isEmpty())
+            generate();
         return availableCodes.poll();
     }
 
@@ -137,7 +130,6 @@ public class DefaultRandomCodeStrategy implements RandomCodeStrategy {
     private void generate() {
         for (int i = 0; i < CACHE_CODES_NUM; ++i)
             availableCodes.add(generateOne());
-
         fileLock.writeObject(codesFilter);
     }
 
@@ -145,21 +137,20 @@ public class DefaultRandomCodeStrategy implements RandomCodeStrategy {
         while (true) {
             int code = secureRandom.nextInt(max(maxRandomSize));
             boolean existed = contains(code);
-
             code = !existed ? add(code) : tryFindAvailableCode(code);
-            if (code >= 0) return code;
-
+            if (code >= 0)
+                return code;
             init();
         }
     }
 
     private int tryFindAvailableCode(int code) {
         int next = codesFilter.nextClearBit(code);
-        if (next != -1 && next < max(maxRandomSize)) return add(next);
-
+        if (next != -1 && next < max(maxRandomSize))
+            return add(next);
         next = codesFilter.previousClearBit(code);
-        if (next != -1) return add(next);
-
+        if (next != -1)
+            return add(next);
         return -1;
     }
 
@@ -171,7 +162,6 @@ public class DefaultRandomCodeStrategy implements RandomCodeStrategy {
     private boolean contains(int code) {
         return codesFilter.get(code);
     }
-
 
     private int max(int size) {
         switch (size) {

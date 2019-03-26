@@ -1,14 +1,12 @@
 package org.n3r.idworker.strategy;
 
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.io.*;
 import java.nio.channels.Channels;
 import java.nio.channels.ClosedChannelException;
 import java.nio.channels.FileChannel;
 import java.nio.channels.OverlappingFileLockException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A file lock a la flock/funlock
@@ -20,10 +18,9 @@ public class FileLock {
     private FileChannel channel;
     private java.nio.channels.FileLock flock = null;
     Logger logger = LoggerFactory.getLogger(FileLock.class);
-
+    
     public FileLock(File file) {
         this.file = file;
-
         try {
             file.createNewFile(); // create the file if it doesn't exist
             channel = new RandomAccessFile(file, "rw").getChannel();
@@ -31,8 +28,7 @@ public class FileLock {
             throw new RuntimeException(e);
         }
     }
-
-
+    
     /**
      * Lock the file or throw an exception if the lock is already held
      */
@@ -46,7 +42,7 @@ public class FileLock {
             throw new RuntimeException(e);
         }
     }
-
+    
     /**
      * Try to lock the file and return true if the locking succeeds
      */
@@ -66,14 +62,15 @@ public class FileLock {
             }
         }
     }
-
+    
     /**
      * Unlock the lock if it is held
      */
     public void unlock() {
         synchronized (this) {
             logger.trace("Releasing lock on {}", file.getAbsolutePath());
-            if (flock == null) return;
+            if (flock == null)
+                return;
             try {
                 flock.release();
             } catch (ClosedChannelException e) {
@@ -83,15 +80,15 @@ public class FileLock {
             }
         }
     }
-
+    
     /**
      * Destroy this lock, closing the associated FileChannel
      */
     public void destroy() {
         synchronized (this) {
             unlock();
-            if (!channel.isOpen()) return;
-
+            if (!channel.isOpen())
+                return;
             try {
                 channel.close();
             } catch (IOException e) {
@@ -99,8 +96,7 @@ public class FileLock {
             }
         }
     }
-
-
+    
     @SuppressWarnings("unchecked")
     public <T> T readObject() {
         try {
@@ -111,14 +107,12 @@ public class FileLock {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
         return null;
     }
-
-
+    
     public synchronized boolean writeObject(Object object) {
-        if (!channel.isOpen()) return false;
-
+        if (!channel.isOpen())
+            return false;
         try {
             channel.position(0);
             OutputStream out = Channels.newOutputStream(channel);

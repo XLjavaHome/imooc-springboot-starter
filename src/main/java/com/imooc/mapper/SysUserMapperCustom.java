@@ -1,10 +1,8 @@
 package com.imooc.mapper;
 
+import com.imooc.pojo.SysUser;
 import java.util.List;
 
-import com.imooc.pojo.SysUser;
-
 public interface SysUserMapperCustom {
-	
-	List<SysUser> queryUserSimplyInfoById(String id);
+    List<SysUser> queryUserSimplyInfoById(String id);
 }

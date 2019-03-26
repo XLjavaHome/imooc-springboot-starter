@@ -6,7 +6,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Utils {
-
     public static final String DOT_IDWORKERS = ".idworkers";
 
     public static ClassLoader getClassLoader() {
@@ -14,37 +13,33 @@ public class Utils {
         return contextClassLoader != null ? contextClassLoader : Utils.class.getClassLoader();
     }
 
-
     public static InputStream classResourceToStream(String resourceName) {
         return getClassLoader().getResourceAsStream(resourceName);
     }
-
 
     public static String firstLine(String classResourceName) {
         InputStream inputStream = null;
         try {
             inputStream = classResourceToStream(classResourceName);
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
-
             return bufferedReader.readLine();
         } catch (IOException e) {
             return null;
         } finally {
-            if (inputStream != null) try {
-                inputStream.close();
-            } catch (IOException e) {
-                // ignore
-            }
+            if (inputStream != null)
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    // ignore
+                }
         }
     }
 
     public static String checkNotEmpty(String param, String name) {
         if (param == null || param.isEmpty())
             throw new IllegalArgumentException(name + " is empty");
-
         return param;
     }
-
 
     public static long midnightMillis() {
         // today
@@ -54,7 +49,6 @@ public class Utils {
         date.set(Calendar.MINUTE, 0);
         date.set(Calendar.SECOND, 0);
         date.set(Calendar.MILLISECOND, 0);
-
         return date.getTimeInMillis();
     }
 
@@ -92,14 +86,13 @@ public class Utils {
     static String defaultRange = "0123456789ABCDFGHKMNPRSTWXYZ";
 
     public static String padLeft(String str, int size, char padChar) {
-        if (str.length() >= size) return str;
-
+        if (str.length() >= size)
+            return str;
         StringBuilder s = new StringBuilder();
         for (int i = size - str.length(); i > 0; --i) {
             s.append(padChar);
         }
         s.append(str);
-
         return s.toString();
     }
 
@@ -107,8 +100,8 @@ public class Utils {
         String userHome = System.getProperty("user.home");
         File idWorkerHome = new File(userHome + File.separator + DOT_IDWORKERS);
         idWorkerHome.mkdirs();
-        if (idWorkerHome.isDirectory()) return idWorkerHome;
-
+        if (idWorkerHome.isDirectory())
+            return idWorkerHome;
         throw new RuntimeException("failed to create .idworkers at user home");
     }
 }

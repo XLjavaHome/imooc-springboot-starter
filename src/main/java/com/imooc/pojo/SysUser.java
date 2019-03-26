@@ -1,121 +1,107 @@
 package com.imooc.pojo;
 
 import java.util.Date;
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Table(name = "sys_user")
 public class SysUser {
     @Id
     private String id;
-
     /**
      * 用户名，登录名
      */
     private String username;
-
     /**
      * 密码
      */
     private String password;
-
     /**
      * 昵称
      */
     private String nickname;
-
     /**
      * 年龄
      */
     private Integer age;
-
     /**
      * 性别
-0：女
-1：男
-2：保密 
+     * 0：女
+     * 1：男
+     * 2：保密
      */
     private Integer sex;
-
     /**
      * 职业类型：
-1：Java开发
-2：前端开发
-3：大数据开发
-4：ios开发
-5：Android开发
-6：Linux系统工程师
-7：PHP开发
-8：.net开发
-9：C/C++
-10：学生
-11：其它
+     * 1：Java开发
+     * 2：前端开发
+     * 3：大数据开发
+     * 4：ios开发
+     * 5：Android开发
+     * 6：Linux系统工程师
+     * 7：PHP开发
+     * 8：.net开发
+     * 9：C/C++
+     * 10：学生
+     * 11：其它
      */
     private Integer job;
-
     /**
      * 头像地址
      */
     @Column(name = "face_image")
     private String faceImage;
-
     /**
      * 省
      */
     private String province;
-
     /**
      * 市
      */
     private String city;
-
     /**
      * 区
      */
     private String district;
-
     /**
      * 详细地址
      */
     private String address;
-
     /**
      * 用于权限的“盐”
      */
     @Column(name = "auth_salt")
     private String authSalt;
-
     /**
      * 最后一次登录IP
      */
     @Column(name = "last_login_ip")
     private String lastLoginIp;
-
     /**
      * 最后一次登录时间
      */
     @Column(name = "last_login_time")
     private Date lastLoginTime;
-
     @Column(name = "is_delete")
     private Integer isDelete;
-
     @Column(name = "regist_time")
     private Date registTime;
-
+    
     /**
      * @return id
      */
     public String getId() {
         return id;
     }
-
+    
     /**
      * @param id
      */
     public void setId(String id) {
         this.id = id;
     }
-
+    
     /**
      * 获取用户名，登录名
      *
@@ -124,7 +110,7 @@ public class SysUser {
     public String getUsername() {
         return username;
     }
-
+    
     /**
      * 设置用户名，登录名
      *
@@ -133,7 +119,7 @@ public class SysUser {
     public void setUsername(String username) {
         this.username = username;
     }
-
+    
     /**
      * 获取密码
      *
@@ -142,7 +128,7 @@ public class SysUser {
     public String getPassword() {
         return password;
     }
-
+    
     /**
      * 设置密码
      *
@@ -151,7 +137,7 @@ public class SysUser {
     public void setPassword(String password) {
         this.password = password;
     }
-
+    
     /**
      * 获取昵称
      *
@@ -160,7 +146,7 @@ public class SysUser {
     public String getNickname() {
         return nickname;
     }
-
+    
     /**
      * 设置昵称
      *
@@ -169,7 +155,7 @@ public class SysUser {
     public void setNickname(String nickname) {
         this.nickname = nickname;
     }
-
+    
     /**
      * 获取年龄
      *
@@ -178,7 +164,7 @@ public class SysUser {
     public Integer getAge() {
         return age;
     }
-
+    
     /**
      * 设置年龄
      *
@@ -187,99 +173,99 @@ public class SysUser {
     public void setAge(Integer age) {
         this.age = age;
     }
-
+    
     /**
      * 获取性别
-0：女
-1：男
-2：保密 
+     * 0：女
+     * 1：男
+     * 2：保密
      *
      * @return sex - 性别
-0：女
-1：男
-2：保密 
+     * 0：女
+     * 1：男
+     * 2：保密
      */
     public Integer getSex() {
         return sex;
     }
-
+    
     /**
      * 设置性别
-0：女
-1：男
-2：保密 
+     * 0：女
+     * 1：男
+     * 2：保密
      *
      * @param sex 性别
-0：女
-1：男
-2：保密 
+     * 0：女
+     * 1：男
+     * 2：保密
      */
     public void setSex(Integer sex) {
         this.sex = sex;
     }
-
+    
     /**
      * 获取职业类型：
-1：Java开发
-2：前端开发
-3：大数据开发
-4：ios开发
-5：Android开发
-6：Linux系统工程师
-7：PHP开发
-8：.net开发
-9：C/C++
-10：学生
-11：其它
+     * 1：Java开发
+     * 2：前端开发
+     * 3：大数据开发
+     * 4：ios开发
+     * 5：Android开发
+     * 6：Linux系统工程师
+     * 7：PHP开发
+     * 8：.net开发
+     * 9：C/C++
+     * 10：学生
+     * 11：其它
      *
      * @return job - 职业类型：
-1：Java开发
-2：前端开发
-3：大数据开发
-4：ios开发
-5：Android开发
-6：Linux系统工程师
-7：PHP开发
-8：.net开发
-9：C/C++
-10：学生
-11：其它
+     * 1：Java开发
+     * 2：前端开发
+     * 3：大数据开发
+     * 4：ios开发
+     * 5：Android开发
+     * 6：Linux系统工程师
+     * 7：PHP开发
+     * 8：.net开发
+     * 9：C/C++
+     * 10：学生
+     * 11：其它
      */
     public Integer getJob() {
         return job;
     }
-
+    
     /**
      * 设置职业类型：
-1：Java开发
-2：前端开发
-3：大数据开发
-4：ios开发
-5：Android开发
-6：Linux系统工程师
-7：PHP开发
-8：.net开发
-9：C/C++
-10：学生
-11：其它
+     * 1：Java开发
+     * 2：前端开发
+     * 3：大数据开发
+     * 4：ios开发
+     * 5：Android开发
+     * 6：Linux系统工程师
+     * 7：PHP开发
+     * 8：.net开发
+     * 9：C/C++
+     * 10：学生
+     * 11：其它
      *
      * @param job 职业类型：
-1：Java开发
-2：前端开发
-3：大数据开发
-4：ios开发
-5：Android开发
-6：Linux系统工程师
-7：PHP开发
-8：.net开发
-9：C/C++
-10：学生
-11：其它
+     * 1：Java开发
+     * 2：前端开发
+     * 3：大数据开发
+     * 4：ios开发
+     * 5：Android开发
+     * 6：Linux系统工程师
+     * 7：PHP开发
+     * 8：.net开发
+     * 9：C/C++
+     * 10：学生
+     * 11：其它
      */
     public void setJob(Integer job) {
         this.job = job;
     }
-
+    
     /**
      * 获取头像地址
      *
@@ -288,7 +274,7 @@ public class SysUser {
     public String getFaceImage() {
         return faceImage;
     }
-
+    
     /**
      * 设置头像地址
      *
@@ -297,7 +283,7 @@ public class SysUser {
     public void setFaceImage(String faceImage) {
         this.faceImage = faceImage;
     }
-
+    
     /**
      * 获取省
      *
@@ -306,7 +292,7 @@ public class SysUser {
     public String getProvince() {
         return province;
     }
-
+    
     /**
      * 设置省
      *
@@ -315,7 +301,7 @@ public class SysUser {
     public void setProvince(String province) {
         this.province = province;
     }
-
+    
     /**
      * 获取市
      *
@@ -324,7 +310,7 @@ public class SysUser {
     public String getCity() {
         return city;
     }
-
+    
     /**
      * 设置市
      *
@@ -333,7 +319,7 @@ public class SysUser {
     public void setCity(String city) {
         this.city = city;
     }
-
+    
     /**
      * 获取区
      *
@@ -342,7 +328,7 @@ public class SysUser {
     public String getDistrict() {
         return district;
     }
-
+    
     /**
      * 设置区
      *
@@ -351,7 +337,7 @@ public class SysUser {
     public void setDistrict(String district) {
         this.district = district;
     }
-
+    
     /**
      * 获取详细地址
      *
@@ -360,7 +346,7 @@ public class SysUser {
     public String getAddress() {
         return address;
     }
-
+    
     /**
      * 设置详细地址
      *
@@ -369,7 +355,7 @@ public class SysUser {
     public void setAddress(String address) {
         this.address = address;
     }
-
+    
     /**
      * 获取用于权限的“盐”
      *
@@ -378,7 +364,7 @@ public class SysUser {
     public String getAuthSalt() {
         return authSalt;
     }
-
+    
     /**
      * 设置用于权限的“盐”
      *
@@ -387,7 +373,7 @@ public class SysUser {
     public void setAuthSalt(String authSalt) {
         this.authSalt = authSalt;
     }
-
+    
     /**
      * 获取最后一次登录IP
      *
@@ -396,7 +382,7 @@ public class SysUser {
     public String getLastLoginIp() {
         return lastLoginIp;
     }
-
+    
     /**
      * 设置最后一次登录IP
      *
@@ -405,7 +391,7 @@ public class SysUser {
     public void setLastLoginIp(String lastLoginIp) {
         this.lastLoginIp = lastLoginIp;
     }
-
+    
     /**
      * 获取最后一次登录时间
      *
@@ -414,7 +400,7 @@ public class SysUser {
     public Date getLastLoginTime() {
         return lastLoginTime;
     }
-
+    
     /**
      * 设置最后一次登录时间
      *
@@ -423,28 +409,28 @@ public class SysUser {
     public void setLastLoginTime(Date lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
     }
-
+    
     /**
      * @return is_delete
      */
     public Integer getIsDelete() {
         return isDelete;
     }
-
+    
     /**
      * @param isDelete
      */
     public void setIsDelete(Integer isDelete) {
         this.isDelete = isDelete;
     }
-
+    
     /**
      * @return regist_time
      */
     public Date getRegistTime() {
         return registTime;
     }
-
+    
     /**
      * @param registTime
      */
